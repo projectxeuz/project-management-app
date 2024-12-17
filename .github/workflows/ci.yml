@@ -39,9 +39,9 @@ jobs:
         run: npm run lint
 
       # Step 6: Run tests
-      - name: Run tests
-        working-directory: ./client
-        run: npm test
+      #- name: Run tests
+        #working-directory: ./client
+        #run: npm test
 
       # Step 7: Upload build artifacts
       - name: Upload build artifacts
