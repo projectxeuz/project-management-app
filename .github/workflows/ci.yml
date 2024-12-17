@@ -23,18 +23,34 @@ jobs:
         with:
           node-version: '18' # Ensure compatibility with your app's React version
 
-      # Step 3: Install dependencies
+      # Step 3: Install dependencies in client directory
       - name: Install dependencies
+        working-directory: ./client
         run: npm install
 
-      # Step 4: Lint the code
-      - name: Run ESLint
-        run: npm run lint
-
-      # Step 5: Build the application
-      - name: Build application
+      # Step 4: Build the application
+      - name: Build the application
+        working-directory: ./client
         run: npm run build
 
-      # Step 6: Run tests (if applicable)
+      # Step 5: Run linting
+      - name: Run ESLint
+        working-directory: ./client
+        run: npm run lint
+
+      # Step 6: Run tests
       - name: Run tests
-        run: npm test # Replace with the actual test command if tests exist
+        working-directory: ./client
+        run: npm test
+
+      # Step 7: Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./client/.next
+
+      # Step 8: Add Security Testing - npm audit for vulnerabilities
+      - name: Run SAST with npm audit
+        working-directory: ./client
+        run: npm audit --production
