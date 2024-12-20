@@ -63,7 +63,7 @@ const Sidebar = () => {
         {/* TOP LOGO */}
         <div className="z-51 flex min-h-[56px] w-63 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
           <div className="text-xl font-bold text-gray-800 dark:text-white">
-            EDLIST
+            VoCo Tech 
           </div>
           {isSidebarCollapsed ? null : (
             <button
@@ -217,7 +217,7 @@ const SidebarLink = ({ href, icon: Icon, label }: SidebarLinkProps) => {
   const isActive =
     pathname === href || (pathname === "/" && href === "/dashboard");
 
-    
+
   return (
     <Link href={href} className="w-full">
       <div
