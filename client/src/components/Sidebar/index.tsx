@@ -27,15 +27,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
+
 const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(true);
   const [showPriority, setShowPriority] = useState(true);
+
 
   const { data: projects } = useGetProjectsQuery();
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
   );
+
 
   const { data: currentUser } = useGetAuthUserQuery({});
   const handleSignOut = async () => {
@@ -45,19 +48,20 @@ const Sidebar = () => {
       console.error("Error signing out: ", error);
     }
   };
+
   if (!currentUser) return null;
   const currentUserDetails = currentUser?.userDetails;
 
   const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl
-    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white
-    ${isSidebarCollapsed ? "w-0 hidden" : "w-64"}
+    transition-all duration-301 h-full z-42 dark:bg-black overflow-y-auto bg-white
+    ${isSidebarCollapsed ? "w-0 hidden" : "w-63"}
   `;
 
   return (
     <div className={sidebarClassNames}>
       <div className="flex h-[100%] w-full flex-col justify-start">
         {/* TOP LOGO */}
-        <div className="z-50 flex min-h-[56px] w-64 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
+        <div className="z-51 flex min-h-[56px] w-63 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
           <div className="text-xl font-bold text-gray-800 dark:text-white">
             EDLIST
           </div>
@@ -72,14 +76,16 @@ const Sidebar = () => {
             </button>
           )}
         </div>
+
         {/* TEAM */}
         <div className="flex items-center gap-5 border-y-[1.5px] border-gray-200 px-8 py-4 dark:border-gray-700">
           <Image
             src="https://pm-s3-images.s3.us-east-2.amazonaws.com/logo.png"
             alt="Logo"
-            width={40}
-            height={40}
+            width={41}
+            height={41}
           />
+
           <div>
             <h3 className="text-md font-bold tracking-wide dark:text-gray-200">
               EDROH TEAM
@@ -89,7 +95,9 @@ const Sidebar = () => {
               <p className="text-xs text-gray-500">Private</p>
             </div>
           </div>
+
         </div>
+
         {/* NAVBAR LINKS */}
         <nav className="z-10 w-full">
           <SidebarLink icon={Home} label="Home" href="/" />
@@ -101,6 +109,7 @@ const Sidebar = () => {
         </nav>
 
         {/* PROJECTS LINKS */}
+
         <button
           onClick={() => setShowProjects((prev) => !prev)}
           className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
@@ -112,6 +121,7 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
+
         {/* PROJECTS LIST */}
         {showProjects &&
           projects?.map((project) => (
@@ -124,6 +134,7 @@ const Sidebar = () => {
           ))}
 
         {/* PRIORITIES LINKS */}
+
         <button
           onClick={() => setShowPriority((prev) => !prev)}
           className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
@@ -135,6 +146,7 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
+
         {showPriority && (
           <>
             <SidebarLink
@@ -161,6 +173,7 @@ const Sidebar = () => {
           </>
         )}
       </div>
+
       <div className="z-10 mt-32 flex w-full flex-col items-center gap-4 bg-white px-8 py-4 dark:bg-black md:hidden">
         <div className="flex w-full items-center">
           <div className="align-center flex h-9 w-9 justify-center">
@@ -189,6 +202,7 @@ const Sidebar = () => {
       </div>
     </div>
   );
+
 };
 
 interface SidebarLinkProps {
@@ -197,11 +211,13 @@ interface SidebarLinkProps {
   label: string;
 }
 
+
 const SidebarLink = ({ href, icon: Icon, label }: SidebarLinkProps) => {
   const pathname = usePathname();
   const isActive =
     pathname === href || (pathname === "/" && href === "/dashboard");
 
+    
   return (
     <Link href={href} className="w-full">
       <div
@@ -220,6 +236,7 @@ const SidebarLink = ({ href, icon: Icon, label }: SidebarLinkProps) => {
       </div>
     </Link>
   );
+
 };
 
 export default Sidebar;
