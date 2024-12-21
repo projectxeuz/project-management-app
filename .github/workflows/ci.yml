@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ./client/.next
+          path: .next
 
       # Step 8: Add Security Testing - npm audit for vulnerabilities
       - name: Run SAST with npm audit
